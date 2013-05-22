@@ -25,8 +25,7 @@ this experiment is about.
 - Must not patch/override anything in Kinetic's core library
 - Must not break or mess up with Kinetic's single-touch event handling (incl. drag-n-drop)
 
-At this stage I don't care about file size and dependencies (I developed this for an existing project that needs to dependencies anyways)
-Lastly, overall performance should not be affected by whether multi-touch is enabled or not.
+At this stage file size and dependencies are not a concern (I developed this for an existing project that has loads of dependencies anyways). Lastly, overall performance should not be affected by whether multi-touch is enabled or not.
 
 ## Enters Touchy
 
