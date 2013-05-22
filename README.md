@@ -46,9 +46,9 @@ Additionally, if you are using Greensock's awesome [GSAP tweening library](http:
 
 You need to include Kinetic, Underscore and Touchy in your html/application.
 Optionally add GSAP TweenLite / TweenMax and the GSAP Kinetic Plugin.
-Then add Kinetic.MultiTouch.js.
+Then add Kinetic.MultiTouch.js. See example code.
 
-The new namespace `Kinetic.MultiTouch` is now available.
+Kinetic.MultiTouch adds the new namespace `Kinetic.MultiTouch`.
 
 In order to make your `Kinetic.Stage` multi-touch aware, just inherit from `Kinetic.MultiTouch.Stage` instead of `Kinetic.Stage`:
 
@@ -58,7 +58,7 @@ In order to make your `Kinetic.Stage` multi-touch aware, just inherit from `Kine
         height: 400
     });
 
-That's pretty much it. By default nodes are NOT multi-touch enabled. In order to make a node fire multi-touch events you need to add the `multitouch` property to the attributes list, for example:
+That's pretty much it. `Kinetic.MultiTouch.Stage` is basically just a stage extension that registers Touchy with the stage container element. By default nodes are NOT multi-touch enabled - i.e. multi-touch events are not captured and triggere. In order to make a node fire multi-touch events you need to add the `multitouch` property to the attributes list, for example:
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
@@ -70,12 +70,12 @@ Enable multi-touch drag-and-drop is equally easy:
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
       multitouch : { // now the node will receive multi-touch events
-        draggable : true // the node is also draggable
+        draggable : true // the node is also multi-touch draggable
       } 
       
     });
     
-If you are using GSAP with the Kinetic Plugin you can pass the additional `autoDraw` boolean property to specify whethere autoDraw should be enabled in the Kinetic Plugin (it is by default!). This is particularly useful if you have other tweens happening concurrently to your drag-and-drop that are using it. If you are not using GSAP and/or the Kinetic Plugin this option has no effect (Kinetic `layer.batchDraw()` is used instead).
+If you are using GSAP with the Kinetic Plugin you can pass the additional `autoDraw` boolean property to specify whether *autoDraw* should be enabled in the Kinetic Plugin (it is by default!). This is particularly useful if you have other tweens happening concurrently to your drag-and-drop that are using it. If you are not using GSAP and/or the Kinetic Plugin this option has no effect (Kinetic `layer.batchDraw()` is used instead).
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
@@ -87,9 +87,9 @@ If you are using GSAP with the Kinetic Plugin you can pass the additional `autoD
     });
 
 
-Multitouch directives are applied in a similar way to Kinetic's `listening` and `draggable` properties, so for example if a node is multi-touch enabled, so are its children. Kinetic default `listening` and `draggable` behaviours are preserved, so if a node is not listening to regular events it won't listen to multi-touch events either. Kinetic `draggable` attributes takes precedence over `multitouch : { draggable : true }`, so if a node (or one of its ancestors) is marked as *draggable*, default Kinetic drag-and-drop behaviour is used instead of the multi-touch one.
+Multitouch directives are applied in a similar way to Kinetic's `listening` and `draggable` properties, so for example if a node is multi-touch enabled, so are its children. Kinetic default `listening` and `draggable` behaviours are preserved, so if a node is not listening to regular events it won't listen to multi-touch events either. Kinetic `draggable` attributes take precedence over `multitouch : { draggable : true }`, so if a node (or one of its ancestors) is marked as *draggable*, default Kinetic drag-and-drop behaviour is used instead of the multi-touch one (that is, only one node can be dragged at a time).
 
-Touch-events are fired with a special name in order to keep them separate from *regular* single-touch events fired by Kinetic. They are available in the `Kinetic.MultiTouch` namespace as follows (the actual string names may change):
+Touch-events are fired with a special name in order to keep them separate from *regular* single-touch events fired by Kinetic. They are available in the `Kinetic.MultiTouch` namespace as follows (the actual string names may change - this is the first thing I came out with):
 
     Kinetic.MultiTouch.TOUCHSTART, // "touchstart:multitouch"
     Kinetic.MultiTouch.TOUCHMOVE,  // "touchmove:multitouch"
@@ -99,7 +99,7 @@ Touch-events are fired with a special name in order to keep them separate from *
     Kinetic.MultiTouch.DRAGMOVE,   // "dragmove:multitouch"
     Kinetic.MultiTouch.DRAGEND,    // "dragend:multitouch"
     
-So in order to to listen to multi-touch events you simply have to do:
+In order to to listen to multi-touch events you simply have to do:
 
     node.on(Kinetic.MultiTouch.TAP, function(evt) {
       ... // evt is currently a Touchy "point", not a real TouchEvent
@@ -112,9 +112,13 @@ So in order to to listen to multi-touch events you simply have to do:
 ## Support
 
 This has been tested with Kinetic 4.5.1 and 4.5.2.
-It should work with older versions as well but I couldn't be bothered testing them.
-This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-efficient. Feedback is of course welcome.
+It should work with older versions as well but I did not do any test.
+
+This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-smart. It should be easy enough to add this to an existing project to give it a go - and revert back if things don't work for you. Feedback is of course welcome. 
 
 ## License
 
-Do what you want with it and be happy.
+This code is provided "as is" by [oneoverzero GmbH](http://www.oneoverzero.net).
+
+Do what you want with it, have fun and be happy.
+
