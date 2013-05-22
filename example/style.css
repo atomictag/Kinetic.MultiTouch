@@ -1,0 +1,19 @@
+html {
+  height: 100%; }
+
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  background: #ccc;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; }
+
+.page-container {
+  margin: 10px; }
+  .page-container canvas, .page-container .kineticjs-content {
+    background: #ddd; }
