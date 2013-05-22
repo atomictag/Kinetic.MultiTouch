@@ -36,11 +36,11 @@ All we need to do is to create a *kinetic* Touchy plugin to do all the finger-ha
 
 ## Dependencies
 
-- Kinetic
-- Underscore
-- Touchy
+- [Kinetic](http://kineticjs.com/) (the best Canvas library out there :)
+- [Underscore](http://underscorejs.org/) (just because I am lazy and I use it everywhere)
+- [Touchy](https://github.com/jairajs89/Touchy.js) (kudos for making such a pretty little gem)
 
-Additionally, if you are using Greensock's awesome GSAP tweening library (with or without the GSAP Kinetic Plugin), it will be used to handle the draw updates during `dragmove`.
+Additionally, if you are using Greensock's awesome [GSAP tweening library](http://www.greensock.com/gsap-js/) (with or without the [GSAP Kinetic Plugin](https://github.com/greensock/GreenSock-JS/blob/master/src/uncompressed/plugins/KineticPlugin.js)), it will be used to handle the draw updates during `dragmove` (you can also specify if `autoDraw` should be used - see below).
 
 
 ## How to use it
@@ -76,7 +76,17 @@ Enable multi-touch drag-and-drop is equally easy:
       
     });
     
-If you are using GSAP with the Kinetic Plugin you can pass the additional `autoDraw` boolean property to specify whethere autoDraw should be enabled in the Kinetic Plugin (it is by default!). If you are not using GSAP and/or the Kinetic Plugin this option has no effect.
+If you are using GSAP with the Kinetic Plugin you can pass the additional `autoDraw` boolean property to specify whethere autoDraw should be enabled in the Kinetic Plugin (it is by default!). This is particularly useful if you have other tweens happening concurrently to your drag-and-drop that are using it. If you are not using GSAP and/or the Kinetic Plugin this option has no effect (Kinetic `layer.batchDraw()` is used instead).
+
+    var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
+      ...
+      multitouch : { // now the node will receive multi-touch events
+        draggable : true, // the node is also draggable
+        autoDraw  : true // let GSAP Kinetic's plugin handle batch draws
+      } 
+      
+    });
+
 
 Multitouch directives are applied in a similar way to Kinetic's `listening` and `draggable` properties, so they propagate from parent nodes to child nodes and vice-versa.
 
@@ -102,7 +112,8 @@ So in order to to listen to multi-touch events you simply have to do:
     
 ## Kinetic versions supported
 
-This has been tested with Kinetic 4.5.1 and 4.5.2. It should work with older versions as well but I couldn't be bothered testing it.
+This has been tested with Kinetic 4.5.1 and 4.5.2.
+It should work with older versions as well but I couldn't be bothered testing them.
 
 ## License
 
