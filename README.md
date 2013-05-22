@@ -58,19 +58,19 @@ In order to make your `Kinetic.Stage` multi-touch aware, just inherit from `Kine
         height: 400
     });
 
-That's pretty much it. `Kinetic.MultiTouch.Stage` is basically just a stage extension that registers Touchy with the stage container element. By default nodes are NOT multi-touch enabled - i.e. multi-touch events are not captured and triggere. In order to make a node fire multi-touch events you need to add the `multitouch` property to the attributes list, for example:
+That's pretty much it. `Kinetic.MultiTouch.Stage` is basically just a stage extension that registers Touchy with the stage container element. By default nodes are NOT multi-touch enabled - i.e. multi-touch events are not captured and triggered. In order to make a node fire multi-touch events you need to add the `multitouch` property to the attributes list, for example:
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
-      multitouch : true // now the node will receive multi-touch events
+      multitouch : true // now the node will receive/emit multi-touch events
     });
     
 Enable multi-touch drag-and-drop is equally easy:
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
-      multitouch : { // now the node will receive multi-touch events
-        draggable : true // the node is also multi-touch draggable
+      multitouch : { // now the node will receive/emit multi-touch events
+        draggable : true // the node is also draggable (will move on screen and trigger drag* events)
       } 
       
     });
@@ -79,8 +79,8 @@ If you are using GSAP with the Kinetic Plugin you can pass the additional `autoD
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
-      multitouch : { // now the node will receive multi-touch events
-        draggable : true, // the node is also draggable
+      multitouch : { // now the node will receive/emit multi-touch events
+        draggable : true, // the node is also draggable (will move on screen and trigger drag* events)
         autoDraw  : true // let GSAP Kinetic's plugin handle batch draws
       } 
       
