@@ -120,5 +120,5 @@ This is pretty much a proof of concept and it took me more time to write this RE
 
 This code is provided "as is" by [oneoverzero GmbH](http://www.oneoverzero.net).
 
-Do what you want with it, have fun and be happy.
+Do whathever you want with it, have fun and be happy.
 
