@@ -88,7 +88,7 @@ If you are using GSAP with the Kinetic Plugin you can pass the additional `autoD
     });
 
 
-Multitouch directives are applied in a similar way to Kinetic's `listening` and `draggable` properties, so they propagate from parent nodes to child nodes and vice-versa.
+Multitouch directives are applied in a similar way to Kinetic's `listening` and `draggable` properties, so for example if a node is multi-touch enabled, so are its children. Kinetic default `listening` and `draggable` behaviours are preserved, so if a node is not listening to regular events it won't listen to multi-touch events either. Kinetic `draggable` attributes takes precedence over `multitouch : { draggable : true }`, so if a node (or one of its ancestors) is marked as *draggable*, default Kinetic drag-and-drop behaviour is used instead of the multi-touch one.
 
 Touch-events are fired with a special name in order to keep them separate from *regular* single-touch events fired by Kinetic. They are available in the `Kinetic.MultiTouch` namespace as follows (the actual string names may change):
 
@@ -110,10 +110,11 @@ So in order to to listen to multi-touch events you simply have to do:
       ... // evt is currently a Touchy "point", not a real TouchEvent 
     }); 
     
-## Kinetic versions supported
+## Support
 
 This has been tested with Kinetic 4.5.1 and 4.5.2.
 It should work with older versions as well but I couldn't be bothered testing them.
+This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-efficient. Feedback is of course welcome.
 
 ## License
 
