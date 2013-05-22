@@ -111,7 +111,7 @@ In order to to listen to multi-touch events you simply have to do:
     
 ## Support
 
-This has been tested with Kinetic 4.5.1 and 4.5.2.
+This has been tested with Kinetic 4.5.1 and 4.5.2 (the example most likely only works with Kinetic 4.5.2).
 It should work with older versions as well but I did not do any test.
 
 This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-smart. It should be easy enough to add this to an existing project to give it a go - and revert back if things don't work for you. Feedback is of course welcome. 
