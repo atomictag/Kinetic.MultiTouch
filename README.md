@@ -31,7 +31,7 @@ At this stage file size and dependencies are not a concern (I developed this for
 
 Over time I've been looking at various multi-touch libraries (there are [many](https://github.com/bebraw/jswiki/wiki/Touch) to choose from depending on the use case) and I've always liked the super-simple and extensible  *socket-like* approach proposed by [Touchy](https://github.com/jairajs89/Touchy.js). Touchy's design is perfectly suited to add self-contained multi-finger handlers that we can use to *add* multi-touch events to Kinetic.
 
-All we need to do is to create a *kinetic* Touchy plugin to do all the finger-handling for us and register the plugin on the stage container element. 
+All we need to do is to create a *kinetic* Touchy plugin to do all the finger-handling for us and register the plugin on the stage container element.
 
 ## Dependencies
 
@@ -58,23 +58,30 @@ In order to make your `Kinetic.Stage` multi-touch aware, just inherit from `Kine
         height: 400
     });
 
-That's pretty much it. `Kinetic.MultiTouch.Stage` is basically just a stage extension that registers Touchy with the stage container element. By default nodes are NOT multi-touch enabled - i.e. multi-touch events are not captured and triggered. In order to make a node fire multi-touch events you need to add the `multitouch` property to the attributes list, for example:
+That's pretty much it. `Kinetic.MultiTouch.Stage` is basically just a stage extension that registers Touchy with the stage container element. The option object passed to the constructor is exactly the same as the one expected by `Kinetic.Stage`,
+with the following additions:
+
+  - `disableSingleTouch : <boolean>` (default: `false`): prevent Kinetic from registering its own single-touch events. This forces you to use only multitouch events only as Kinetic will not fire its own touch/mouse events any longer, but it provides better performance. In most cases this is what you want, but you can keep both if you need so.
+
+  - `multitouch : <boolean>` (default: `false`): Enable multitouch by default on the stage and its children
+
+Unless `multitouch:true` is passed to the Stage constructor, by default nodes are **NOT** multi-touch enabled - i.e. multi-touch events are not captured and triggered. In order to make a node fire multi-touch events you need to add the `multitouch` property to the attributes list, for example:
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
       multitouch : true // now the node will receive/emit multi-touch events
     });
-    
+
 Enable multi-touch drag-and-drop is equally easy:
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
       ...
       multitouch : { // now the node will receive/emit multi-touch events
         draggable : true // the node is also draggable (will move on screen and trigger drag* events)
-      } 
-      
+      }
+
     });
-    
+
 If you are using GSAP with the Kinetic Plugin you can pass the additional `autoDraw` boolean property to specify whether *autoDraw* should be enabled in the Kinetic Plugin (it is by default!). This is particularly useful if you have other tweens happening concurrently to your drag-and-drop that are using it. If you are not using GSAP and/or the Kinetic Plugin this option has no effect (Kinetic `layer.batchDraw()` is used instead).
 
     var node = new Kinetic.Group({ // This can be a layer, a group, or a shape
@@ -82,8 +89,8 @@ If you are using GSAP with the Kinetic Plugin you can pass the additional `autoD
       multitouch : { // now the node will receive/emit multi-touch events
         draggable : true, // the node is also draggable (will move on screen and trigger drag* events)
         autoDraw  : true // let GSAP Kinetic's plugin handle batch draws
-      } 
-      
+      }
+
     });
 
 
@@ -98,23 +105,23 @@ Touch-events are fired with a special name in order to keep them separate from *
     Kinetic.MultiTouch.DRAGSTART,  // "dragstart:multitouch"
     Kinetic.MultiTouch.DRAGMOVE,   // "dragmove:multitouch"
     Kinetic.MultiTouch.DRAGEND,    // "dragend:multitouch"
-    
+
 In order to to listen to multi-touch events you simply have to do:
 
     node.on(Kinetic.MultiTouch.TAP, function(evt) {
       ... // evt is currently a Touchy "point", not a real TouchEvent
     });
 
-    node.on(Kinetic.MultiTouch.DRAGMOVE, function(evt) { 
-      ... // evt is currently a Touchy "point", not a real TouchEvent 
-    }); 
-    
+    node.on(Kinetic.MultiTouch.DRAGMOVE, function(evt) {
+      ... // evt is currently a Touchy "point", not a real TouchEvent
+    });
+
 ## Support
 
 This has been tested with Kinetic 4.5.1 and 4.5.2 (the example most likely only works with Kinetic 4.5.2).
 It should work with older versions as well but I did not do any test.
 
-This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-smart. It should be easy enough to add this to an existing project to give it a go - and revert back if things don't work for you. Feedback is of course welcome. 
+This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-smart. It should be easy enough to add this to an existing project to give it a go - and revert back if things don't work for you. Feedback is of course welcome.
 
 ## License
 

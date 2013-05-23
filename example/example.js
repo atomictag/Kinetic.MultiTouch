@@ -18,7 +18,10 @@
     var stage = new Kinetic.MultiTouch.Stage({
         container: 'surface-container',
         width: stageW,
-        height: stageH
+        height: stageH,
+        // Prevent Kinetic from registering its own single-touch handlers
+        disableSingleTouch : true,
+        multitouch: true
     });
 
     // Add some text
@@ -36,7 +39,7 @@
     // The playground layer
     var playgroundLayer = new Kinetic.Layer({
         // Make the layer multi-touch aware
-        multitouch : true
+        //multitouch : true
     });
 
     // Shape templates
@@ -50,9 +53,9 @@
         x : 50,
         y : 100,
         // Make this group draggable
-        multitouch : {
-            draggable : true
-        }
+        // multitouch : {
+        //     draggable : true
+        // }
     });
     draggableGroup.add(greenCircle.clone());
     draggableGroup.add(greenCircle.clone({ y : 30}));

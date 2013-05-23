@@ -226,8 +226,17 @@
     // Export as Kinetic.MultiTouch. Add event names so they can be referenced in user code (in case they change)
     Kinetic.MultiTouch = _(Kinetic.MultiTouch || {}).extend(events);
 
-    // Add multi-touch Kinetic extension
+    // Add multi-touch Kinetic extension. Takes an option object like Kinetic.Stage does with the following additions:
+    //  - multitouch : <boolean>, default 'false'
+    //                       Enable multitouch by default on the stage and its children. If this is undefined or set to false
+    //                       multi-touch events are not captured and triggered by default (and you must enable them on the nodes you want)
+    //  - disableSingleTouch: <boolean>, default 'false'
+    //                       Prevent kinetic from registering its own single-touch events.
+    //                       This forces you to use only multitouch events only as Kinetic will not
+    //                       fire its own touch/mouse events any longer, but it provides better performance
     Kinetic.MultiTouch.Stage = function(config) {
+        // Prevent Kinetic from registering its own events if disableSingleTouch is passed in the options
+        this.disableSingleTouch = config.disableSingleTouch;
         Kinetic.Stage.call(this, config);
         // Get content
         var content = this.getContent();
@@ -241,6 +250,13 @@
                 autoDraw : true
             }
         });
+    }
+    // Override _bindContentEvents, so we can prevent Kinetic from registering its own
+    // content events if the Stage has been configured with disableSingleTouch
+    Kinetic.MultiTouch.Stage.prototype._bindContentEvents = function() {
+        if(!this.disableSingleTouch) {
+            Kinetic.Stage.prototype._bindContentEvents.apply(this, arguments);
+        }
     }
     Kinetic.Util.extend(Kinetic.MultiTouch.Stage, Kinetic.Stage);
 
