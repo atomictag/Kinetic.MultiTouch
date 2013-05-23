@@ -20,7 +20,7 @@
         width: stageW,
         height: stageH,
         // Prevent Kinetic from registering its own single-touch handlers
-        // disableSingleTouch : true
+        disableSingleTouch : true
     });
 
     // Add some text

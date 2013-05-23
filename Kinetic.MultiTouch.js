@@ -14,6 +14,9 @@
     // Check if touch events are natively supported (used to enable Touchy emulation mode)
     var supportsTouch = !!('ontouchstart' in window || navigator.msMaxTouchPoints);
 
+    // preventDefault handler
+    var preventDefault = function (e) { e.preventDefault() };
+
     // All events are namespaced in order to prevent conflicts with Kinetic ones
     var NAMESPACE = ':multitouch';
 
@@ -256,6 +259,9 @@
     Kinetic.MultiTouch.Stage.prototype._bindContentEvents = function() {
         if(!this.disableSingleTouch) {
             Kinetic.Stage.prototype._bindContentEvents.apply(this, arguments);
+        } else {
+            // Prevent the content from moving when dragged
+            this.getContent().addEventListener('touchmove', preventDefault, false);
         }
     }
     Kinetic.Util.extend(Kinetic.MultiTouch.Stage, Kinetic.Stage);
