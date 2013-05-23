@@ -200,8 +200,8 @@
                 // for DD but for now we just piggy-back the batchDraw animation
                 else {
                     dragTarget.setAbsolutePosition(newNodePos);
-                    dragTarget.getLayer().batchDraw();
                     target.fire(events.DRAGMOVE, evt, true);
+                    dragTarget.getLayer().batchDraw();
                 }
 
             }
