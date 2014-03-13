@@ -49,7 +49,7 @@
             var tp = toStagePoint(point);
             // Find node below point
             var obj = stage.getIntersection(tp);
-            return obj;
+            return (obj && obj.shape /* Kinetic 4.5.x */) || obj /* Kinetic 5.x */;
         }
 
         // Scan the node hierarchy starting fron the given node for 'multitouch' directives.
