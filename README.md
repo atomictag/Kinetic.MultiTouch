@@ -5,7 +5,7 @@ Experimental multi-touch support for [Kineticjs](http://kineticjs.com/) using [T
 
 ## Rationale
 
-As of version 4.5.2 [Kineticjs](http://kineticjs.com/) does not (yet) provide support for multi-touch events
+As of version 5.0.1 [Kineticjs](http://kineticjs.com/) does not (yet) provide support for multi-touch events
 on the nodes added to the stage (it is fairly easy to add multi-touch gestures to the stage as a whole as shown in
 [this example](http://www.html5canvastutorials.com/labs/html5-canvas-multi-touch-scale-stage-with-kineticjs/)).
 This means you can not drag multiple layers/groups/shapes at the same time or react to more than one touch event at a time.
@@ -118,8 +118,8 @@ In order to to listen to multi-touch events you simply have to do:
 
 ## Support
 
-This has been tested with Kinetic 4.5.1 and 4.5.2 (the example most likely only works with Kinetic 4.5.2).
-It should work with older versions as well but I did not do any test.
+Kinetic 4.5.x is supported as well as Kinetic 5 up to the latest (current) version 5.0.1.
+The example provided uses Kinetic 5.0.1.
 
 This is pretty much a proof of concept and it took me more time to write this README than the actual code, so things may not be 100% tested or super-smart. It should be easy enough to add this to an existing project to give it a go - and revert back if things don't work for you. Feedback is of course welcome.
 
